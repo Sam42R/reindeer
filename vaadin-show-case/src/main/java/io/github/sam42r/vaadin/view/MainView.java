@@ -1,5 +1,6 @@
 package io.github.sam42r.vaadin.view;
 
+import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Main;
@@ -20,7 +21,7 @@ public class MainView extends Main {
         horizontalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         add(horizontalLayout);
 
-        var starsRatingDefault = new StarsRating();
+        var starsRatingDefault = StarsRating.builder().build();
         add(new H2("stars-rating default"), starsRatingDefault);
         starsRatingDefault.addChangeListener(event ->
                 System.out.printf("Stars-Rating (default): %d%n", event.getSource().getValue()));
@@ -35,58 +36,66 @@ public class MainView extends Main {
                 StarsRating.builder()
                         .size(3)
                         .initial(1)
-                        .icon(VaadinIcon.HEART_O)
-                        .selectedIcon(VaadinIcon.HEART)
+                        .icon(VaadinIcon.HEART_O::create)
+                        .selectedIcon(VaadinIcon.HEART::create)
                         .color("tomato")
                         .selectedColor("red")
                         .build(),
                 StarsRating.builder()
                         .size(4)
                         .initial(2)
-                        .icon(VaadinIcon.CIRCLE_THIN)
-                        .selectedIcon(VaadinIcon.DOT_CIRCLE)
+                        .icon(VaadinIcon.CIRCLE_THIN::create)
+                        .selectedIcon(VaadinIcon.DOT_CIRCLE::create)
                         .color("lightblue")
                         .selectedColor("blue")
                         .build(),
                 StarsRating.builder()
                         .size(5)
                         .initial(3)
-                        .icon(VaadinIcon.BULLSEYE)
-                        .selectedIcon(VaadinIcon.CROSSHAIRS)
+                        .icon(VaadinIcon.BULLSEYE::create)
+                        .selectedIcon(VaadinIcon.CROSSHAIRS::create)
                         .color("darkseagreen")
                         .selectedColor("darkgreen")
                         .build(),
                 StarsRating.builder()
                         .size(6)
                         .initial(4)
-                        .icon(VaadinIcon.CIRCLE)
-                        .selectedIcon(VaadinIcon.CIRCLE)
+                        .icon(VaadinIcon.CIRCLE::create)
+                        .selectedIcon(VaadinIcon.CIRCLE::create)
                         .color("lightgoldenrodyellow")
                         .selectedColor("gold")
                         .build(),
                 StarsRating.builder()
-                        .size(5)
-                        .initial(3)
-                        .icon(VaadinIcon.DIAMOND_O)
-                        .selectedIcon(VaadinIcon.DIAMOND)
+                        .size(6)
+                        .initial(4)
+                        .icon(VaadinIcon.DIAMOND_O::create)
+                        .selectedIcon(VaadinIcon.DIAMOND::create)
                         .color("lightsteelblue")
                         .selectedColor("royalblue")
                         .build(),
                 StarsRating.builder()
+                        .size(5)
+                        .initial(3)
+                        .icon(VaadinIcon.THIN_SQUARE::create)
+                        .selectedIcon(VaadinIcon.CHECK_SQUARE_O::create)
+                        .color("lightgrey")
+                        .selectedColor("darkgrey")
+                        .build(),
+                StarsRating.builder()
                         .size(4)
                         .initial(2)
-                        .icon(VaadinIcon.THUMBS_UP_O)
-                        .selectedIcon(VaadinIcon.THUMBS_UP)
-                        .color("default")
+                        .icon(FontAwesome.Brands.LINUX::create)
+                        .selectedIcon(FontAwesome.Brands.LINUX::create)
+                        .color("lightgrey")
                         .selectedColor("default")
                         .build(),
                 StarsRating.builder()
                         .size(3)
                         .initial(1)
-                        .icon(VaadinIcon.THIN_SQUARE)
-                        .selectedIcon(VaadinIcon.CHECK_SQUARE_O)
+                        .icon(FontAwesome.Solid.CROWN::create)
+                        .selectedIcon(FontAwesome.Solid.CROWN::create)
                         .color("lightgrey")
-                        .selectedColor("darkgrey")
+                        .selectedColor("gold")
                         .build()
         );
     }
