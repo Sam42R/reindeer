@@ -43,6 +43,37 @@
             <artifactId>font-awesome-iron-iconset</artifactId>
             <version>5.3.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- BundleHelper -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.15.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.17.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>2.11.5</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -51,4 +82,81 @@
             <url>https://maven.vaadin.com/vaadin-addons</url>
         </repository>
     </repositories>
+
+    <profiles>
+        <profile>
+            <!-- extend parent profile -->
+            <id>create-bundle</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>call-script</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <java fork="true"
+                                              sourcefile="${project.basedir}/src/test/java/io/github/sam42r/vaadin/util/BundleHelper.java">
+                                            <classpath refid="maven.test.classpath"/>
+                                            <arg value="${project.basedir}"/>
+                                            <arg value="${project.version}"/>
+                                            <arg value="${project.basedir}/../central"/>
+                                        </java>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.sam42r</groupId>
+                        <artifactId>semver-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>release</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>semantic-release</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <scm>
+                                <password>${env.SSH_PASSPHRASE}</password>
+                                <push>false</push>
+                            </scm>
+                            <analyzer>
+                                <specification-name>Gitmoji</specification-name>
+                            </analyzer>
+                            <release>
+                                <publish>false</publish>
+                                <password>${env.GITHUB_TOKEN}</password>
+                            </release>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>io.github.sam42r</groupId>
+                                <artifactId>semver-analyzer-gitmoji</artifactId>
+                                <version>1.6.0</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
