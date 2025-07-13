@@ -1,6 +1,7 @@
 /.idea/
 /src/
 /target/
+/central/
 /frontend/
 /node_modules/
 /stars-rating/target/
