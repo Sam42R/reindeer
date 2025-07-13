@@ -1,5 +1,7 @@
 /.idea/
+/src/
 /target/
 /frontend/
+/node_modules/
 /stars-rating/target/
 /vaadin-show-case/target/

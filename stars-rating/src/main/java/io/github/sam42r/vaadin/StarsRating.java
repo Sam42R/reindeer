@@ -5,6 +5,7 @@ import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -12,6 +13,7 @@ import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 public class StarsRating extends Composite<Div> {
@@ -20,36 +22,32 @@ public class StarsRating extends Composite<Div> {
         HORIZONTAL, VERTICAL;
     }
 
-    private static final int DEFAULT_SIZE = 5;
-    private static final int DEFAULT_VALUE = 0;
-    private static final Orientation DEFAULT_ORIENTATION = Orientation.HORIZONTAL;
-    private static final VaadinIcon DEFAULT_ICON = VaadinIcon.STAR_O;
-    private static final VaadinIcon DEFAULT_ICON_SELECTED = VaadinIcon.STAR;
-    private static final String DEFAULT_COLOR = "default";
-    private static final String DEFAULT_SELECTED_COLOR = "orange";
-
     private final List<Div> stars = new ArrayList<>();
-    private final VaadinIcon icon;
-    private final VaadinIcon selectedIcon;
+    private final Supplier<Icon> iconSupplier;
+    private final Supplier<Icon> selectedIconSupplier;
     private final String color;
     private final String selectedColor;
 
     private int value;
 
-    public StarsRating() {
-        this(DEFAULT_SIZE, DEFAULT_VALUE, DEFAULT_ORIENTATION, DEFAULT_ICON, DEFAULT_ICON_SELECTED, DEFAULT_COLOR, DEFAULT_SELECTED_COLOR);
-    }
-
-    private StarsRating(int size, int initial, Orientation orientation, VaadinIcon icon, VaadinIcon iconSelected, String color, String selectedColor) {
-        this.icon = icon;
-        this.selectedIcon = iconSelected;
+    private StarsRating(
+            int size,
+            int initial,
+            Orientation orientation,
+            Supplier<Icon> iconSupplier,
+            Supplier<Icon> selectedIconSupplier,
+            String color,
+            String selectedColor
+    ) {
+        this.iconSupplier = iconSupplier;
+        this.selectedIconSupplier = selectedIconSupplier;
 
         this.color = color;
         this.selectedColor = selectedColor;
 
         IntStream.range(0, size).forEach(index -> {
             var star = new Div();
-            star.add(icon.create());
+            star.add(iconSupplier.get());
             star.addClickListener(this::handleClickEvent);
             stars.add(star);
         });
@@ -81,10 +79,10 @@ public class StarsRating extends Composite<Div> {
         stars.forEach(star -> {
             star.removeAll();
 
-            var iconToSet = stars.indexOf(star) < value ? selectedIcon : icon;
+            var iconToSet = stars.indexOf(star) < value ? selectedIconSupplier : iconSupplier;
             var colorToSet = stars.indexOf(star) < value ? selectedColor : color;
 
-            var icon = iconToSet.create();
+            var icon = iconToSet.get();
             icon.setColor(colorToSet);
 
             star.add(icon);
@@ -110,63 +108,63 @@ public class StarsRating extends Composite<Div> {
         }
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static StarsRatingBuilder builder() {
+        return new StarsRatingBuilder();
     }
 
     /**
      * Builder for {@link StarsRating}.
      */
-    public static final class Builder {
+    public static final class StarsRatingBuilder {
 
-        private int size = DEFAULT_SIZE;
-        private int initial = DEFAULT_VALUE;
-        private Orientation orientation = DEFAULT_ORIENTATION;
-        private VaadinIcon icon = DEFAULT_ICON;
-        private VaadinIcon selectedIcon = DEFAULT_ICON_SELECTED;
-        private String color = DEFAULT_COLOR;
-        private String selectedColor = DEFAULT_SELECTED_COLOR;
+        private int size = 5;
+        private int initial = 0;
+        private Orientation orientation = Orientation.HORIZONTAL;
+        private Supplier<Icon> iconSupplier = VaadinIcon.STAR_O::create;
+        private Supplier<Icon> selectedIconSupplier = VaadinIcon.STAR::create;
+        private String color = "default";
+        private String selectedColor = "orange";
 
-        private Builder() {
+        private StarsRatingBuilder() {
         }
 
-        public Builder size(int size) {
+        public StarsRatingBuilder size(int size) {
             this.size = size;
             return this;
         }
 
-        public Builder initial(int initial) {
+        public StarsRatingBuilder initial(int initial) {
             this.initial = initial;
             return this;
         }
 
-        public Builder orientation(Orientation orientation) {
+        public StarsRatingBuilder orientation(Orientation orientation) {
             this.orientation = orientation;
             return this;
         }
 
-        public Builder icon(VaadinIcon icon) {
-            this.icon = icon;
+        public StarsRatingBuilder icon(Supplier<Icon> iconSupplier) {
+            this.iconSupplier = iconSupplier;
             return this;
         }
 
-        public Builder selectedIcon(VaadinIcon selectedIcon) {
-            this.selectedIcon = selectedIcon;
+        public StarsRatingBuilder selectedIcon(Supplier<Icon> selectedIconSupplier) {
+            this.selectedIconSupplier = selectedIconSupplier;
             return this;
         }
 
-        public Builder color(String color) {
+        public StarsRatingBuilder color(String color) {
             this.color = color;
             return this;
         }
 
-        public Builder selectedColor(String selectedColor) {
+        public StarsRatingBuilder selectedColor(String selectedColor) {
             this.selectedColor = selectedColor;
             return this;
         }
 
         public StarsRating build() {
-            return new StarsRating(size, initial, orientation, icon, selectedIcon, color, selectedColor);
+            return new StarsRating(size, initial, orientation, iconSupplier, selectedIconSupplier, color, selectedColor);
         }
     }
 }
