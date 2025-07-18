@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.sam42r</groupId>
-    <artifactId>vaadin-parent</artifactId>
+    <artifactId>reindeer</artifactId>
     <version>0.1.0</version>
 
     <packaging>pom</packaging>
@@ -16,7 +16,7 @@
 
     <modules>
         <module>stars-rating</module>
-        <module>vaadin-show-case</module>
+        <module>show-case</module>
     </modules>
 
     <scm>
