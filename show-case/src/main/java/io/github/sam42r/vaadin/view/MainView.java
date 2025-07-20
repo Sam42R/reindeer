@@ -9,7 +9,9 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import io.github.sam42r.vaadin.StarsRating;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Route
 public class MainView extends Main {
 
@@ -24,12 +26,12 @@ public class MainView extends Main {
         var starsRatingDefault = StarsRating.builder().build();
         add(new H2("stars-rating default"), starsRatingDefault);
         starsRatingDefault.addChangeListener(event ->
-                System.out.printf("Stars-Rating (default): %d%n", event.getSource().getValue()));
+                log.debug("Stars-Rating (default): {}", event.getSource().getValue()));
 
         var starsRatingVertical = StarsRating.builder().orientation(StarsRating.Orientation.VERTICAL).build();
         add(new H2("stars-rating vertical"), starsRatingVertical);
         var registration = starsRatingVertical.addChangeListener(event ->
-                System.out.printf("Stars-Rating (vertical): %d%n", event.getSource().getValue()));
+                log.debug("Stars-Rating (vertical): {}", event.getSource().getValue()));
         registration.remove();
 
         add(new H2("stars-rating custom"),
