@@ -17,7 +17,7 @@ class BundleHelperTest {
 
         BundleHelper.main(new String[]{
                         Path.of(".").toAbsolutePath().toString(),
-                        "v1.2.2",
+                        "0.2.0",
                         tempDir.toString()
                 }
         );

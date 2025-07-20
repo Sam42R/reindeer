@@ -33,9 +33,9 @@ public class BundleHelper {
 
             var pluginDirectory = Files.createDirectories(tempDirectory.resolve("io").resolve("github").resolve("sam42r"));
 
-            var parentDirectory = Files.createDirectories(pluginDirectory.resolve("vaadin-parent").resolve(version));
+            var parentDirectory = Files.createDirectories(pluginDirectory.resolve("reindeer").resolve(version));
 
-            var parentPom = projectBaseDir.resolve("..").resolve("target").resolve("vaadin-parent-%s.pom".formatted(version));
+            var parentPom = projectBaseDir.resolve("..").resolve("target").resolve("reindeer-%s.pom".formatted(version));
             addToBundle(parentPom, parentDirectory);
 
             for (String module : MODULES) {
