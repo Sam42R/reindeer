@@ -11,7 +11,24 @@
     </parent>
 
     <artifactId>show-case</artifactId>
+
     <name>Show-Case</name>
+
+    <description>Show-Case for custom Vaadin components</description>
+
+    <organization>
+        <name>Sam42R</name>
+        <url>https://github.com/Sam42R</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>Sam42R</id>
+            <name>Rene R</name>
+            <email>sam42r@users.noreply.github.com</email>
+            <url>https://github.com/Sam42R/</url>
+        </developer>
+    </developers>
 
     <properties>
         <spring.version>3.0.1</spring.version>
@@ -84,7 +101,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>call-script</id>

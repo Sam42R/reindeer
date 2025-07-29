@@ -1,4 +1,4 @@
-package io.github.sam42r.vaadin;
+package io.github.sam42r.reindeer;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import org.springframework.boot.SpringApplication;

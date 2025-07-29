@@ -1,4 +1,4 @@
-package io.github.sam42r.vaadin.util;
+package io.github.sam42r.reindeer;
 
 import net.lingala.zip4j.ZipFile;
 import org.apache.commons.codec.digest.DigestUtils;
