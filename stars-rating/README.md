@@ -37,5 +37,3 @@ third-party icons (e.g. [font-awesome](https://vaadin.com/directory/component/fo
       // [...]
       .build()
 ```
-
-

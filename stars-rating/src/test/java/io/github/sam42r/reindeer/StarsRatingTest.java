@@ -1,4 +1,4 @@
-package io.github.sam42r.vaadin;
+package io.github.sam42r.reindeer;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;

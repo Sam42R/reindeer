@@ -1,4 +1,4 @@
-package io.github.sam42r.vaadin.util;
+package io.github.sam42r.reindeer;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

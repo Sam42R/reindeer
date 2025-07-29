@@ -11,7 +11,24 @@
     </parent>
 
     <artifactId>stars-rating</artifactId>
+
     <name>Stars-Rating</name>
+
+    <description>Stars-Rating component for Vaadin</description>
+
+    <organization>
+        <name>Sam42R</name>
+        <url>https://github.com/Sam42R</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>Sam42R</id>
+            <name>Rene R</name>
+            <email>sam42r@users.noreply.github.com</email>
+            <url>https://github.com/Sam42R/</url>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>

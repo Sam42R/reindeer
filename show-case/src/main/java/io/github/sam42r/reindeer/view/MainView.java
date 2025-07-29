@@ -1,4 +1,4 @@
-package io.github.sam42r.vaadin.view;
+package io.github.sam42r.reindeer.view;
 
 import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
 import com.vaadin.flow.component.html.H1;
@@ -8,7 +8,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
-import io.github.sam42r.vaadin.StarsRating;
+import io.github.sam42r.reindeer.StarsRating;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
