@@ -19,6 +19,7 @@
     <modules>
         <module>stars-rating</module>
         <module>show-case</module>
+        <module>mission-patch-maker</module>
     </modules>
 
     <scm>
