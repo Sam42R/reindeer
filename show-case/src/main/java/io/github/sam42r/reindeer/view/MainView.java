@@ -2,15 +2,15 @@ package io.github.sam42r.reindeer.view;
 
 import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.router.Route;
+import io.github.sam42r.reindeer.MissionPatchMaker;
 import io.github.sam42r.reindeer.StarsRating;
 import io.github.sam42r.reindeer.StarsRating.Color;
 import io.github.sam42r.reindeer.StarsRating.None;
@@ -23,12 +23,19 @@ import lombok.extern.slf4j.Slf4j;
 public class MainView extends Main {
 
     public MainView() {
-        var horizontalLayout = new HorizontalLayout(
-                VaadinIcon.VAADIN_H.create(),
-                new H1("vaadin show-case")
-        );
-        horizontalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        add(horizontalLayout);
+        setSizeFull();
+
+        var tabSheet = new TabSheet();
+        tabSheet.setSizeFull();
+        tabSheet.add("stars-rating", starsRating());
+        tabSheet.add("mission-patch-maker", missionPatchMaker());
+        tabSheet.setSelectedIndex(1);
+
+        add(tabSheet);
+    }
+
+    private VerticalLayout starsRating() {
+        var verticalLayout = new VerticalLayout();
 
         var starsRatingDefault = StarsRating.builder().initial(1).build();
         var starsRatingDefaultDisabledNone = StarsRating.builder().initial(2).disabledStyle(new None()).build();
@@ -46,7 +53,7 @@ public class MainView extends Main {
             starsRatingDefaultDisabledColor.setEnabled(e.getValue());
         });
 
-        add(new H2("stars-rating default"),
+        verticalLayout.add(new H2("stars-rating default"),
                 new HorizontalLayout(
                         new VerticalLayout(enabled, new Span("Click to enable/disable")),
                         new VerticalLayout(starsRatingDefault, new Span("Opacity")),
@@ -56,13 +63,13 @@ public class MainView extends Main {
                 )
         );
 
-        add(new H2("stars-rating vertical"),
+        verticalLayout.add(new H2("stars-rating vertical"),
                 StarsRating.builder()
                         .orientation(StarsRating.Orientation.VERTICAL)
                         .build()
         );
 
-        add(new H2("stars-rating custom"),
+        verticalLayout.add(new H2("stars-rating custom"),
                 StarsRating.builder()
                         .size(3)
                         .initial(1)
@@ -129,5 +136,14 @@ public class MainView extends Main {
                         .selectedColor(ColorNames.Gold.name())
                         .build()
         );
+
+        return verticalLayout;
+    }
+
+    private VerticalLayout missionPatchMaker() {
+        var verticalLayout = new VerticalLayout(new MissionPatchMaker());
+        verticalLayout.setSizeFull();
+        verticalLayout.setPadding(false);
+        return verticalLayout;
     }
 }

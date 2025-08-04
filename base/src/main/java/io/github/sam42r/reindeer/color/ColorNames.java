@@ -7,6 +7,7 @@ import java.util.Optional;
 /**
  * @see <a href="https://htmlcolorcodes.com/color-names/">Color Nmaes</a>
  */
+@SuppressWarnings("java:S115")
 public enum ColorNames {
 
     // Red HTML Color Names
