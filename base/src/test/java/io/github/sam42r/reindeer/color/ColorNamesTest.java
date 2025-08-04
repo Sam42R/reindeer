@@ -1,3 +1,5 @@
+package io.github.sam42r.reindeer.color;
+
 import io.github.sam42r.reindeer.color.ColorNames;
 import org.junit.jupiter.api.Test;
 

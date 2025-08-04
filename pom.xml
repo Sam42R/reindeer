@@ -39,6 +39,7 @@
     <modules>
         <module>base</module>
         <module>stars-rating</module>
+        <module>mission-patch-maker</module>
         <module>show-case</module>
     </modules>
 
@@ -53,7 +54,7 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <vaadin.version>24.0.0</vaadin.version>
+        <vaadin.version>24.8.0</vaadin.version>
         <lombok.version>1.18.28</lombok.version>
         <junit.version>5.10.2</junit.version>
         <assertj.version>3.24.2</assertj.version>

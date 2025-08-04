@@ -27,55 +27,28 @@ public class StarsRating extends Composite<Div> {
         T value();
     }
 
-    public static final class None implements DisabledStyle<Void> {
-        @Override
-        public Void value() {
-            return null;
+    public record None(Void value) implements DisabledStyle<Void> {
+        public None() {
+            this(null);
         }
     }
 
-    public static final class Shade implements DisabledStyle<Double> {
-        private final Double value;
-
-        public Shade(Double value) {
+    public record Shade(Double value) implements DisabledStyle<Double> {
+        public Shade {
             if (value < -1.0 || value > 1.0) {
                 throw new IllegalArgumentException("Shade should be between -1.0 and 1.0");
             }
-            this.value = value;
-        }
-
-        @Override
-        public Double value() {
-            return value;
         }
     }
 
-    public static final class Color implements DisabledStyle<String> {
-        private final String value;
-
-        public Color(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String value() {
-            return value;
-        }
+    public record Color(String value) implements DisabledStyle<String> {
     }
 
-    public static final class Opacity implements DisabledStyle<Double> {
-        private final Double value;
-
-        public Opacity(Double value) {
+    public record Opacity(Double value) implements DisabledStyle<Double> {
+        public Opacity {
             if (value < 0.0 || value > 1.0) {
                 throw new IllegalArgumentException("Opacity should be between 0.0 and 1.0");
             }
-            this.value = value;
-        }
-
-        @Override
-        public Double value() {
-            return value;
         }
     }
 

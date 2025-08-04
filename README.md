@@ -11,9 +11,11 @@ This repository contains some custom [Vaadin](https://vaadin.com/flow) flow comp
 
 ![stars-rating](stars-rating/stars-rating.png)
 
+- [Mission-Patch-Maker](mission-patch-maker/README.md)
+
 # Show-case
 
-The [show-case](vaadin-show-case/README.md) demonstrates the sample usage of the custom components.
+The [show-case](show-case/README.md) demonstrates the sample usage of the custom components.
 
 # Resources
 
