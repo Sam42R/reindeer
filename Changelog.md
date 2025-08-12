@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- DO NOT REMOVE - c871f32ed1b7a85b24a0f22e8e7d9e3ee285742c - DO NOT REMOVE -->
 
+## 0.2.2 - 2025-08-12
+
+
+### Others
+- :speech_balloon: changes for vaadin directory
+
+
 ## 0.2.1 - 2025-07-29
 
 
