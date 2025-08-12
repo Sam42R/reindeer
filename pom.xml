@@ -11,28 +11,7 @@
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
-
     <description>Custom Vaadin Components</description>
-
-    <url>https://github.com/Sam42R/reindeer</url>
-
-    <modules>
-        <module>stars-rating</module>
-        <module>show-case</module>
-    </modules>
-
-    <scm>
-        <connection>scm:git:git://github.com/Sam42R/reindeer.git</connection>
-        <developerConnection>scm:git:git://github.com/Sam42R/reindeer.git</developerConnection>
-        <url>https://github.com/Sam42R/reindeer</url>
-    </scm>
-
-    <licenses>
-        <license>
-            <name>GPLv3</name>
-            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
-        </license>
-    </licenses>
 
     <organization>
         <name>Sam42R</name>
@@ -47,6 +26,26 @@
             <url>https://github.com/Sam42R/</url>
         </developer>
     </developers>
+
+    <licenses>
+        <license>
+            <name>GPLv3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <url>https://github.com/Sam42R/reindeer</url>
+
+    <modules>
+        <module>stars-rating</module>
+        <module>show-case</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:git://github.com/Sam42R/reindeer.git</connection>
+        <developerConnection>scm:git:git://github.com/Sam42R/reindeer.git</developerConnection>
+        <url>https://github.com/Sam42R/reindeer</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
@@ -160,6 +159,27 @@
             <id>create-bundle</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <archive>
+                                <index>true</index>
+                                <manifest>
+                                    <addClasspath>false</addClasspath>
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                </manifest>
+                                <manifestEntries>
+                                    <Vaadin-Package-Version>1</Vaadin-Package-Version>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
