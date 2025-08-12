@@ -38,6 +38,7 @@
 
     <modules>
         <module>stars-rating</module>
+        <module>mission-patch-maker</module>
         <module>show-case</module>
     </modules>
 
