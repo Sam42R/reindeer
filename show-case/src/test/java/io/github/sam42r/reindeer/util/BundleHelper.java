@@ -1,4 +1,4 @@
-package io.github.sam42r.reindeer;
+package io.github.sam42r.reindeer.util;
 
 import net.lingala.zip4j.ZipFile;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,7 +13,7 @@ import java.nio.file.StandardOpenOption;
 public class BundleHelper {
 
     private static final String[] MODULES = new String[]{
-            "stars-rating"
+            "base", "stars-rating"
     };
 
     public static void main(String[] args) {
@@ -31,11 +31,11 @@ public class BundleHelper {
             tempDirectory = Files.createTempDirectory("bundle");
             System.out.printf("Using temp directory %s%n", tempDirectory);
 
-            var pluginDirectory = Files.createDirectories(tempDirectory.resolve("io").resolve("github").resolve("sam42r"));
+            var pluginDirectory = Files.createDirectories(tempDirectory.resolve("io").resolve("github").resolve("sam42r").resolve("reindeer"));
 
-            var parentDirectory = Files.createDirectories(pluginDirectory.resolve("reindeer").resolve(version));
+            var parentDirectory = Files.createDirectories(pluginDirectory.resolve("parent").resolve(version));
 
-            var parentPom = projectBaseDir.resolve("..").resolve("target").resolve("reindeer-%s.pom".formatted(version));
+            var parentPom = projectBaseDir.resolve("..").resolve("target").resolve("parent-%s.pom".formatted(version));
             addToBundle(parentPom, parentDirectory);
 
             for (String module : MODULES) {

@@ -12,10 +12,25 @@ _Stars-Rating_ component is created using a builder:
         .initial(1)
         .icon(VaadinIcon.HEART_O::create)
         .selectedIcon(VaadinIcon.HEART::create)
-        .color("tomato")
-        .selectedColor("red")
+        .color(ColorNames.Tomato.name())
+        .selectedColor(ColorNames.Red.name())
+        .disabledStyle(new None())
+        .enabled(false)
         .build();
 ```
+
+## disabled style
+
+_Stars-Rating_ component uses `StarsRating.Opacity(0.5)` as default disabled style.
+
+Following disabled styles are available:
+
+| style   | description                           | Sample                                                |
+|---------|---------------------------------------|-------------------------------------------------------|
+| None    | no visual change if disabled          | `StarsRating.None()`                                  |
+| Opacity | set selected alpha if disabled        | `StarsRating.Opacity(0.5)`                            |
+| Shade   | set brighter/darker color if disabled | `StarsRating.Shade(0.5)` or `StarsRating.Shade(-0.5)` |
+| Color   | set selected color if disabled        | `StarsRating.Color(ColorNames.LightGray.name())`      |
 
 ## handle change events
 
