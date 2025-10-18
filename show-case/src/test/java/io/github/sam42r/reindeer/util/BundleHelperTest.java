@@ -1,4 +1,4 @@
-package io.github.sam42r.reindeer;
+package io.github.sam42r.reindeer.util;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.sam42r</groupId>
-    <artifactId>reindeer</artifactId>
+    <groupId>io.github.sam42r.reindeer</groupId>
+    <artifactId>parent</artifactId>
     <version>0.2.2</version>
 
     <packaging>pom</packaging>
@@ -37,6 +37,7 @@
     <url>https://github.com/Sam42R/reindeer</url>
 
     <modules>
+        <module>base</module>
         <module>stars-rating</module>
         <module>show-case</module>
     </modules>

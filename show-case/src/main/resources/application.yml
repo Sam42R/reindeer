@@ -1,0 +1,4 @@
+logging:
+  level:
+    root: info
+    io.github.sam42r.reindeer: debug

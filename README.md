@@ -15,8 +15,6 @@ This repository contains some custom [Vaadin](https://vaadin.com/flow) flow comp
 
 The [show-case](vaadin-show-case/README.md) demonstrates the sample usage of the custom components.
 
-![show-case](show-case/show-case.png)
-
 # Resources
 
 [Vaadin - Creating Components](https://vaadin.com/docs/latest/flow/create-ui/creating-components)

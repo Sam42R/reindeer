@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.sam42r</groupId>
-        <artifactId>reindeer</artifactId>
+        <groupId>io.github.sam42r.reindeer</groupId>
+        <artifactId>parent</artifactId>
         <version>0.2.2</version>
     </parent>
 
@@ -44,6 +44,12 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-icons-flow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.sam42r.reindeer</groupId>
+            <artifactId>base</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
