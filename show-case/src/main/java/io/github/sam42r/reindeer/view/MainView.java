@@ -9,6 +9,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.TabSheet;
+import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.Route;
 import io.github.sam42r.reindeer.MissionPatchMaker;
 import io.github.sam42r.reindeer.StarsRating;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Route
+@PreserveOnRefresh
 public class MainView extends Main {
 
     public MainView() {
