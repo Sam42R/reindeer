@@ -3,6 +3,7 @@ package io.github.sam42r.reindeer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
 import com.vaadin.componentfactory.ToggleButton;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
@@ -110,6 +111,11 @@ public class MissionPatchMaker extends VerticalLayout {
 
         // finally do initial draw
         selectedLayersGrid.setItems(missionPatchLayers);
+        draw();
+    }
+
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
         draw();
     }
 
