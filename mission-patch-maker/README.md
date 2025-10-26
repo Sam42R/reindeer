@@ -1,5 +1,8 @@
+![Logo](assets/MissionPatch_Logo.png)
+
 # Mission Patch Maker
-...
+
+Create custom mission patches based on layers rendered to a canvas.
 
 # External Resources
 - [misson-patch.com](https://mission-patch.com/)
