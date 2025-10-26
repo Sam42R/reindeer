@@ -13,6 +13,8 @@ This repository contains some custom [Vaadin](https://vaadin.com/flow) flow comp
 
 - [Mission-Patch-Maker](mission-patch-maker/README.md)
 
+<img src="mission-patch-maker/assets/MissionPatch_Logo.png" width="192">
+
 # Show-case
 
 The [show-case](show-case/README.md) demonstrates the sample usage of the custom components.
