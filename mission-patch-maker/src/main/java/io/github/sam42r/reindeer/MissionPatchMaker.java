@@ -3,10 +3,7 @@ package io.github.sam42r.reindeer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
 import com.vaadin.componentfactory.ToggleButton;
-import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.Unit;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -37,19 +34,23 @@ import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
 import io.github.sam42r.reindeer.layer.image.ImageLayer;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.vaadin.addons.parttio.colorful.HexColorPicker;
 import org.vaadin.pekkam.Canvas;
+import org.vaadin.pekkam.event.ImageLoadEvent;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static io.github.sam42r.reindeer.layer.MissionPatchLayer.DEFAULT_CANVAS_HEIGHT;
 import static io.github.sam42r.reindeer.layer.MissionPatchLayer.DEFAULT_CANVAS_WIDTH;
 
+@Slf4j
 public class MissionPatchMaker extends VerticalLayout {
 
     private final ServiceLoader<MissionPatchLayer> serviceLoader = ServiceLoader.load(MissionPatchLayer.class);
@@ -266,6 +267,29 @@ public class MissionPatchMaker extends VerticalLayout {
         //ctx.setFillStyle("azure");
         //ctx.fillRect(0, 0, DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
 
+        var numOfRegistrations = new AtomicLong(0);
+        ComponentEventListener<ImageLoadEvent> listener = e -> {
+            e.unregisterListener();
+            var pendingRegistrations = numOfRegistrations.decrementAndGet();
+            log.trace("Image loaded. Num of pending images: {}", pendingRegistrations);
+            if (pendingRegistrations == 0) {
+                drawToCanvas();
+            }
+        };
+        numOfRegistrations.set(
+                missionPatchLayers.stream()
+                        .map(v -> v.preloadImage(canvas, listener))
+                        .filter(Objects::nonNull)
+                        .count()
+        );
+
+        if (numOfRegistrations.get() == 0) {
+            drawToCanvas();
+        }
+        // TODO maybe show some loading animation!?
+    }
+
+    private void drawToCanvas() {
         missionPatchLayers.forEach(v -> v.draw(canvas));
     }
 

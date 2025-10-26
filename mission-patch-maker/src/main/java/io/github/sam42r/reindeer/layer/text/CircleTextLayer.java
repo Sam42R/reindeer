@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.vaadin.pekkam.Canvas;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static io.github.sam42r.reindeer.layer.text.AbstractTextLayer.*;
@@ -83,7 +82,7 @@ public class CircleTextLayer implements MissionPatchLayer {
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(start * Math.PI / 180); // TODO
-        if(!clockwise) {
+        if (!clockwise) {
             ctx.rotate(Math.PI);
         }
 
