@@ -2,11 +2,14 @@ package io.github.sam42r.reindeer.layer.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.server.VaadinService;
+import com.vaadin.flow.shared.Registration;
 import io.github.sam42r.reindeer.layer.MissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
 import lombok.*;
 import org.vaadin.pekkam.Canvas;
+import org.vaadin.pekkam.event.ImageLoadEvent;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -66,55 +69,15 @@ public class IconLayer implements MissionPatchLayer {
         );
     }
 
-    @SneakyThrows
     @Override
-    public void draw(Canvas canvas) {
+    public Registration preloadImage(@NonNull Canvas canvas, @NonNull ComponentEventListener<ImageLoadEvent> listener) {
+        var registration = canvas.addImageLoadListener(listener);
+
         var name = (icon.name().startsWith("_") ? icon.name().substring(1) : icon.name())
                 .toLowerCase().replace("_", "-");
         var image = "webjars/font-awesome/%s/svgs/%s/%s.svg".formatted(FONT_AWESOME_VERSION, FONT_AWESOME_STYLE, name);
-
-        //drawWithImageLoaded(canvas, image);
-        drawWithImageEmbedded(canvas, image);
-    }
-
-    @Deprecated
-    @SuppressWarnings("unused")
-    private void drawWithImageLoaded(Canvas canvas, String image) {
-        canvas.addImageLoadListener(e -> {
-            var ctx = canvas.getContext();
-
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(rotation * Math.PI / 180);
-            ctx.drawImage(e.getSrc(), -(width / 2d), -(height / 2d), width, height);
-            ctx.restore();
-
-            e.unregisterListener();
-        });
-
-        canvas.loadImage(image);
-    }
-
-    private void drawWithImageEmbedded(Canvas canvas, String image) {
         var resource = VaadinService.getCurrent().getResource(image);
-
         try (var inputStream = resource.openStream()) {
-            canvas.addImageLoadListener(e -> {
-                if (!e.getSrc().equals(source)) {
-                    return;
-                }
-
-                var ctx = canvas.getContext();
-
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.rotate(rotation * Math.PI / 180);
-                ctx.drawImage(e.getSrc(), -(width / 2d), -(height / 2d), width, height);
-                ctx.restore();
-
-                e.unregisterListener();
-            });
-
             var svg = addColor(inputStream.readAllBytes(), URLEncoder.encode(color, StandardCharsets.UTF_8));
             source = "data:image/svg+xml;charset=utf-8,%s".formatted(svg);
 
@@ -122,6 +85,20 @@ public class IconLayer implements MissionPatchLayer {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+
+        return registration;
+    }
+
+    @SneakyThrows
+    @Override
+    public void draw(Canvas canvas) {
+        var ctx = canvas.getContext();
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rotation * Math.PI / 180);
+        ctx.drawImage(source, -(width / 2d), -(height / 2d), width, height);
+        ctx.restore();
     }
 
     @SneakyThrows
