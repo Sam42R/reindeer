@@ -285,7 +285,20 @@ public class MissionPatchMaker extends VerticalLayout {
             draw();
         });
 
-        var canvasActionsLayout = new HorizontalLayout(canvasWidth, canvasHeight);
+        var canvasZoom = new ComboBox<Integer>("zoom");
+        canvasZoom.setItems(25,50,75,100,125,150,175,200);
+        canvasZoom.setValue(100);
+        canvasZoom.setAllowCustomValue(false);
+        canvasZoom.setWidth("128px");
+        canvasZoom.setItemLabelGenerator("%d%%"::formatted);
+        canvasZoom.addValueChangeListener(e -> {
+            var width = (e.getValue() / 100f) * canvasWidth.getValue();
+            var height = (e.getValue() / 100f) * canvasHeight.getValue();
+            canvas.setWidth((float) width, Unit.PIXELS);
+            canvas.setWidth((float) height, Unit.PIXELS);
+        });
+
+        var canvasActionsLayout = new HorizontalLayout(canvasWidth, canvasHeight, canvasZoom);
         canvasActionsLayout.setSizeUndefined();
         canvasActionsLayout.setJustifyContentMode(JustifyContentMode.START);
 
