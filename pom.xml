@@ -65,8 +65,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>sam42r</sonar.organization>
         <sonar.projectKey>Sam42R_reindeer</sonar.projectKey>
-        <!--sonar.projectName>reindeer</sonar.projectName>
-        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding-->
+        <sonar.jacoco.reportPath>${project.basedir}/../show-case/target/aggregate.exec</sonar.jacoco.reportPath>
     </properties>
 
     <dependencyManagement>
