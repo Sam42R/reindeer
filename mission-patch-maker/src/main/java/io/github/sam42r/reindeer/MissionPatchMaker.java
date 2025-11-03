@@ -48,8 +48,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static io.github.sam42r.reindeer.layer.MissionPatchLayer.DEFAULT_CANVAS_HEIGHT;
-import static io.github.sam42r.reindeer.layer.MissionPatchLayer.DEFAULT_CANVAS_WIDTH;
+import static io.github.sam42r.reindeer.layer.MissionPatchLayer.*;
 
 @Slf4j
 public class MissionPatchMaker extends VerticalLayout {
@@ -204,8 +203,11 @@ public class MissionPatchMaker extends VerticalLayout {
 
     private HorizontalLayout view() {
         canvas = new Canvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
-        canvas.setMaxWidth(DEFAULT_CANVAS_WIDTH, Unit.PIXELS);
-        canvas.setMaxHeight(DEFAULT_CANVAS_HEIGHT, Unit.PIXELS);
+        canvas.setMinWidth(MIN_CANVAS_WIDTH, Unit.PIXELS);
+        canvas.setMaxWidth(MAX_CANVAS_WIDTH, Unit.PIXELS);
+        canvas.setMinHeight(MIN_CANVAS_HEIGHT, Unit.PIXELS);
+        canvas.setMaxHeight(MAX_CANVAS_HEIGHT, Unit.PIXELS);
+        canvas.getStyle().setBorder("solid 1px lightgray");
 
         var layout = new HorizontalLayout(canvas);
         layout.setSizeFull();
@@ -253,9 +255,43 @@ public class MissionPatchMaker extends VerticalLayout {
         saveAsPng.setHref(DownloadHandler.fromInputStream(downloadEvent ->
                 exportToPng(downloadEvent.getUI())));
 
-        var layout = new HorizontalLayout(loadFromJson, saveAsJson, saveAsPng);
+        var exportActionsLayout = new HorizontalLayout(loadFromJson, saveAsJson, saveAsPng);
+        exportActionsLayout.setWidthFull();
+        exportActionsLayout.setJustifyContentMode(JustifyContentMode.END);
+
+        var canvasWidth = new NumberField("width");
+        canvasWidth.setMin(MIN_CANVAS_WIDTH);
+        canvasWidth.setMax(MAX_CANVAS_WIDTH);
+        canvasWidth.setStep(10);
+        canvasWidth.setStepButtonsVisible(true);
+        canvasWidth.setValue((double) DEFAULT_CANVAS_WIDTH);
+        canvasWidth.setWidth("128px");
+        canvasWidth.addValueChangeListener(e -> {
+            canvas.getElement().setAttribute("width", String.valueOf(e.getValue()));
+            //canvas.setWidth(e.getValue().floatValue(), Unit.PIXELS);
+            draw();
+        });
+
+        var canvasHeight = new NumberField("height");
+        canvasHeight.setMin(MIN_CANVAS_HEIGHT);
+        canvasHeight.setMax(MAX_CANVAS_HEIGHT);
+        canvasHeight.setStep(10);
+        canvasHeight.setStepButtonsVisible(true);
+        canvasHeight.setValue((double) DEFAULT_CANVAS_HEIGHT);
+        canvasHeight.setWidth("128px");
+        canvasHeight.addValueChangeListener(e -> {
+            canvas.getElement().setAttribute("height", String.valueOf(e.getValue()));
+            //canvas.setHeight(e.getValue().floatValue(), Unit.PIXELS);
+            draw();
+        });
+
+        var canvasActionsLayout = new HorizontalLayout(canvasWidth, canvasHeight);
+        canvasActionsLayout.setSizeUndefined();
+        canvasActionsLayout.setJustifyContentMode(JustifyContentMode.START);
+
+        var layout = new HorizontalLayout(canvasActionsLayout, exportActionsLayout);
         layout.setWidthFull();
-        layout.setJustifyContentMode(JustifyContentMode.END);
+        layout.setJustifyContentMode(JustifyContentMode.BETWEEN);
 
         return layout;
     }
