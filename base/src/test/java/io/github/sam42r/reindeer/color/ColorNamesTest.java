@@ -1,11 +1,10 @@
 package io.github.sam42r.reindeer.color;
 
-import io.github.sam42r.reindeer.color.ColorNames;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ColorNamesTest {
+class ColorNamesTest {
 
     @Test
     void shouldGetRgb() {

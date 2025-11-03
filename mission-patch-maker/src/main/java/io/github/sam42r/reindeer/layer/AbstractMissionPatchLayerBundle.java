@@ -8,7 +8,7 @@ public abstract class AbstractMissionPatchLayerBundle implements MissionPatchLay
 
     protected final List<MissionPatchLayer> bundle;
 
-    public AbstractMissionPatchLayerBundle(List<MissionPatchLayer> bundle) {
+    protected AbstractMissionPatchLayerBundle(List<MissionPatchLayer> bundle) {
         this.bundle = bundle;
     }
 

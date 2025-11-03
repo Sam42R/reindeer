@@ -2,6 +2,7 @@ package io.github.sam42r.reindeer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
+import com.google.common.net.MediaType;
 import com.vaadin.componentfactory.ToggleButton;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
@@ -53,7 +54,7 @@ import static io.github.sam42r.reindeer.layer.MissionPatchLayer.DEFAULT_CANVAS_W
 @Slf4j
 public class MissionPatchMaker extends VerticalLayout {
 
-    private final ServiceLoader<MissionPatchLayer> serviceLoader = ServiceLoader.load(MissionPatchLayer.class);
+    private final transient ServiceLoader<MissionPatchLayer> serviceLoader = ServiceLoader.load(MissionPatchLayer.class);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -263,9 +264,6 @@ public class MissionPatchMaker extends VerticalLayout {
         var ctx = canvas.getContext();
 
         ctx.clearRect(0, 0, DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
-        // canvas background // TODO!?
-        //ctx.setFillStyle("azure");
-        //ctx.fillRect(0, 0, DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
 
         var numOfRegistrations = new AtomicLong(0);
         ComponentEventListener<ImageLoadEvent> listener = e -> {
@@ -299,13 +297,13 @@ public class MissionPatchMaker extends VerticalLayout {
 
         ui.access(() ->
                 canvas.getElement()
-                        .callJsFunction("toDataURL", "image/png")
+                        .callJsFunction("toDataURL", MediaType.PNG.toString())
                         .then(String.class, dataUrl -> {
                             var data = Base64.getDecoder().decode(dataUrl.split(",")[1]);
                             downloadResponse.completeAsync(() -> new DownloadResponse(
                                     new ByteArrayInputStream(data),
                                     "MissionPatch_%d.png".formatted(System.currentTimeMillis()),
-                                    "image/png",
+                                    MediaType.PNG.toString(),
                                     data.length
                             ));
                         }));
@@ -578,12 +576,12 @@ public class MissionPatchMaker extends VerticalLayout {
                 var upload = new Upload();
                 upload.setMaxFiles(1);
                 upload.setAcceptedFileTypes(
-                        "image/bmp",
-                        "image/gif",
-                        "image/jpeg",
-                        "image/png",
-                        "image/svg+xml",
-                        "image/webp"
+                        MediaType.BMP.toString(),
+                        MediaType.GIF.toString(),
+                        MediaType.JPEG.toString(),
+                        MediaType.PNG.toString(),
+                        MediaType.SVG_UTF_8.toString(),
+                        MediaType.WEBP.toString()
                 );
                 upload.setUploadHandler(uploadEvent -> {
                     var image = new ImageLayer.Image(
