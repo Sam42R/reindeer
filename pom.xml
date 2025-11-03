@@ -58,6 +58,7 @@
         <lombok.version>1.18.28</lombok.version>
         <junit.version>5.10.2</junit.version>
         <assertj.version>3.24.2</assertj.version>
+        <mockito.version>5.7.0</mockito.version>
 
         <gpg.executable>C:\Program Files\Git\usr\bin\gpg.exe</gpg.executable>
         <gpg.keyname>D826D9A9F4001BFDA16BD20C4A3649F0FDDA2A52</gpg.keyname>
@@ -91,6 +92,11 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
