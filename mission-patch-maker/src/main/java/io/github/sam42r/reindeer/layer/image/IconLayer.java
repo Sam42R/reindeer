@@ -103,8 +103,8 @@ public class IconLayer implements MissionPatchLayer {
 
     @SneakyThrows
     private String addColor(byte[] bytes, String color) {
-        var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        var transformer = TransformerFactory.newInstance().newTransformer();
+        var builder = DocumentBuilderFactory.newDefaultInstance().newDocumentBuilder();
+        var transformer = TransformerFactory.newDefaultInstance().newTransformer();
 
         var document = builder.parse(new ByteArrayInputStream(bytes));
 

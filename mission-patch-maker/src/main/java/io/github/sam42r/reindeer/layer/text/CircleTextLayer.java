@@ -94,7 +94,7 @@ public class CircleTextLayer implements MissionPatchLayer {
             ctx.save();
             ctx.rotate(i * numRadsPerLetter);
 
-            ctx.fillText(String.valueOf(chars.charAt(i)), 0, (clockwise ? -1 : 1) * radius);
+            ctx.fillText(String.valueOf(chars.charAt(i)), 0, (clockwise ? -1 : 1) * (double) radius);
             ctx.restore();
         }
         ctx.restore();
