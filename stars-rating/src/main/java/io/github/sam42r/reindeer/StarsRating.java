@@ -101,7 +101,7 @@ public class StarsRating extends Composite<Div> {
         setValue(initial);
     }
 
-    private void handleClickEvent(ClickEvent<Div> clickEvent) {
+    protected void handleClickEvent(ClickEvent<Div> clickEvent) {
         if (!enabled) {
             return;
         }
