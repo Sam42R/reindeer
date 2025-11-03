@@ -24,7 +24,7 @@ import org.vaadin.pekkam.event.ImageLoadEvent;
 import java.util.List;
 
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.CLASS,
+        use = JsonTypeInfo.Id.NAME,
         property = "type"
 )
 @JsonSubTypes({
