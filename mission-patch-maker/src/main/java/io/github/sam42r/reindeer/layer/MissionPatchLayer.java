@@ -41,8 +41,13 @@ import java.util.List;
 })
 public interface MissionPatchLayer {
 
+    int MIN_CANVAS_WIDTH = 200;
     int DEFAULT_CANVAS_WIDTH = 400;
+    int MAX_CANVAS_WIDTH = 800;
+
+    int MIN_CANVAS_HEIGHT = 200;
     int DEFAULT_CANVAS_HEIGHT = 400;
+    int MAX_CANVAS_HEIGHT = 800;
 
     @JsonIgnore
     default String getName() {
