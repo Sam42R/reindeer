@@ -259,37 +259,41 @@ public class MissionPatchMaker extends VerticalLayout {
         exportActionsLayout.setWidthFull();
         exportActionsLayout.setJustifyContentMode(JustifyContentMode.END);
 
-        var canvasWidth = new NumberField("width");
+        var canvasWidth = new NumberField();
+        canvasWidth.setTooltipText("Change canvas width");
+        canvasWidth.setPrefixComponent(VaadinIcon.ARROWS_LONG_V.create());
         canvasWidth.setMin(MIN_CANVAS_WIDTH);
         canvasWidth.setMax(MAX_CANVAS_WIDTH);
         canvasWidth.setStep(10);
-        canvasWidth.setStepButtonsVisible(true);
+        canvasWidth.setStepButtonsVisible(false);
         canvasWidth.setValue((double) DEFAULT_CANVAS_WIDTH);
-        canvasWidth.setWidth("128px");
+        canvasWidth.setWidth(128, Unit.PIXELS);
         canvasWidth.addValueChangeListener(e -> {
             canvas.getElement().setAttribute("width", String.valueOf(e.getValue()));
-            //canvas.setWidth(e.getValue().floatValue(), Unit.PIXELS);
             draw();
         });
 
-        var canvasHeight = new NumberField("height");
+        var canvasHeight = new NumberField();
+        canvasHeight.setTooltipText("Change canvas height");
+        canvasHeight.setPrefixComponent(VaadinIcon.ARROWS_LONG_H.create());
         canvasHeight.setMin(MIN_CANVAS_HEIGHT);
         canvasHeight.setMax(MAX_CANVAS_HEIGHT);
         canvasHeight.setStep(10);
-        canvasHeight.setStepButtonsVisible(true);
+        canvasHeight.setStepButtonsVisible(false);
         canvasHeight.setValue((double) DEFAULT_CANVAS_HEIGHT);
-        canvasHeight.setWidth("128px");
+        canvasHeight.setWidth(128, Unit.PIXELS);
         canvasHeight.addValueChangeListener(e -> {
             canvas.getElement().setAttribute("height", String.valueOf(e.getValue()));
-            //canvas.setHeight(e.getValue().floatValue(), Unit.PIXELS);
             draw();
         });
 
-        var canvasZoom = new ComboBox<Integer>("zoom");
-        canvasZoom.setItems(25,50,75,100,125,150,175,200);
+        var canvasZoom = new ComboBox<Integer>();
+        canvasZoom.setTooltipText("Change canvas zoom");
+        canvasZoom.setPrefixComponent(VaadinIcon.SEARCH.create());
+        canvasZoom.setItems(25, 50, 75, 100, 125, 150, 175, 200);
         canvasZoom.setValue(100);
         canvasZoom.setAllowCustomValue(false);
-        canvasZoom.setWidth("128px");
+        canvasZoom.setWidth(128, Unit.PIXELS);
         canvasZoom.setItemLabelGenerator("%d%%"::formatted);
         canvasZoom.addValueChangeListener(e -> {
             var width = (e.getValue() / 100f) * canvasWidth.getValue();
