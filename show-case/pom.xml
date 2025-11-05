@@ -123,25 +123,6 @@
                             <goal>report-aggregate</goal>
                         </goals>
                     </execution>
-
-                    <execution>
-                        <id>merge-results</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>merge</goal>
-                        </goals>
-                        <configuration>
-                            <fileSets>
-                                <fileSet>
-                                    <directory>${project.basedir}/../</directory>
-                                    <includes>
-                                        <include>**/target/jacoco.exec</include>
-                                    </includes>
-                                </fileSet>
-                            </fileSets>
-                            <destFile>${project.basedir}/target/aggregate.exec</destFile>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
