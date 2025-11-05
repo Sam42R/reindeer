@@ -27,6 +27,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.server.streams.DownloadHandler;
 import com.vaadin.flow.server.streams.DownloadResponse;
+import com.vaadin.flow.server.streams.UploadEvent;
 import elemental.json.Json;
 import in.virit.color.HexColor;
 import io.github.sam42r.reindeer.color.ColorNames;
@@ -42,6 +43,7 @@ import org.vaadin.pekkam.event.ImageLoadEvent;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicLong;
@@ -217,6 +219,9 @@ public class MissionPatchMaker extends VerticalLayout {
     }
 
     private HorizontalLayout toolbar() {
+        var canvasWidth = new NumberField();
+        var canvasHeight = new NumberField();
+
         var loadFromJsonButton = new Button(VaadinIcon.CLOUD_UPLOAD_O.create());
         loadFromJsonButton.setTooltipText("Upload JSON");
 
@@ -225,26 +230,18 @@ public class MissionPatchMaker extends VerticalLayout {
         loadFromJson.setMaxFiles(1);
         loadFromJson.setAcceptedFileTypes("application/json");
         loadFromJson.setUploadButton(loadFromJsonButton);
-        loadFromJson.setUploadHandler(uploadEvent -> {
-            var layers = objectMapper.readValue(uploadEvent.getInputStream(), MissionPatchLayer[].class);
-            uploadEvent.getUI().access(() -> {
+        loadFromJson.setUploadHandler(e -> loadFromJson(e, canvasWidth, canvasHeight));
+        loadFromJson.addAllFinishedListener(e ->
                 // clear uploaded files list
-                loadFromJson.getElement().setPropertyJson("files", Json.createArray());
-                // set loaded layers
-                missionPatchLayers.clear();
-                missionPatchLayers.addAll(Arrays.stream(layers).toList());
-                selectedLayersGrid.setItems(missionPatchLayers);
-                draw();
-            });
-        });
+                loadFromJson.getElement().setPropertyJson("files", Json.createArray())
+        );
 
         var saveAsJsonButton = new Button((VaadinIcon.CLOUD_DOWNLOAD_O.create()));
         saveAsJsonButton.setTooltipText("Download JSON");
 
         var saveAsJson = new Anchor();
         saveAsJson.add(saveAsJsonButton);
-        saveAsJson.setHref(DownloadHandler.fromInputStream(downloadEvent ->
-                exportToJson(downloadEvent.getUI())));
+        saveAsJson.setHref(DownloadHandler.fromInputStream(downloadEvent -> exportToJson()));
 
         var saveAsPngButton = new Button(VaadinIcon.FILE_PICTURE.create());
         saveAsPngButton.setTooltipText("Save as PNG");
@@ -252,36 +249,29 @@ public class MissionPatchMaker extends VerticalLayout {
 
         var saveAsPng = new Anchor();
         saveAsPng.add(saveAsPngButton);
-        saveAsPng.setHref(DownloadHandler.fromInputStream(downloadEvent ->
-                exportToPng(downloadEvent.getUI())));
+        saveAsPng.setHref(DownloadHandler.fromInputStream(downloadEvent -> exportToPng(downloadEvent.getUI())));
 
         var exportActionsLayout = new HorizontalLayout(loadFromJson, saveAsJson, saveAsPng);
         exportActionsLayout.setWidthFull();
         exportActionsLayout.setJustifyContentMode(JustifyContentMode.END);
 
-        var canvasWidth = new NumberField();
         canvasWidth.setTooltipText("Change canvas width");
         canvasWidth.setPrefixComponent(VaadinIcon.ARROWS_LONG_V.create());
         canvasWidth.setMin(MIN_CANVAS_WIDTH);
         canvasWidth.setMax(MAX_CANVAS_WIDTH);
-        canvasWidth.setStep(10);
-        canvasWidth.setStepButtonsVisible(false);
         canvasWidth.setValue((double) DEFAULT_CANVAS_WIDTH);
-        canvasWidth.setWidth(128, Unit.PIXELS);
+        canvasWidth.setWidth(80, Unit.PIXELS);
         canvasWidth.addValueChangeListener(e -> {
             canvas.getElement().setAttribute("width", String.valueOf(e.getValue()));
             draw();
         });
 
-        var canvasHeight = new NumberField();
         canvasHeight.setTooltipText("Change canvas height");
         canvasHeight.setPrefixComponent(VaadinIcon.ARROWS_LONG_H.create());
         canvasHeight.setMin(MIN_CANVAS_HEIGHT);
         canvasHeight.setMax(MAX_CANVAS_HEIGHT);
-        canvasHeight.setStep(10);
-        canvasHeight.setStepButtonsVisible(false);
         canvasHeight.setValue((double) DEFAULT_CANVAS_HEIGHT);
-        canvasHeight.setWidth(128, Unit.PIXELS);
+        canvasHeight.setWidth(80, Unit.PIXELS);
         canvasHeight.addValueChangeListener(e -> {
             canvas.getElement().setAttribute("height", String.valueOf(e.getValue()));
             draw();
@@ -344,6 +334,20 @@ public class MissionPatchMaker extends VerticalLayout {
         missionPatchLayers.forEach(v -> v.draw(canvas));
     }
 
+    private void loadFromJson(UploadEvent uploadEvent, NumberField width, NumberField height) throws IOException {
+        var export = objectMapper.readValue(uploadEvent.getInputStream(), Export.class);
+        uploadEvent.getUI().access(() -> {
+            // set canvas size
+            width.setValue(export.width());
+            height.setValue(export.height());
+            // set loaded layers
+            missionPatchLayers.clear();
+            missionPatchLayers.addAll(export.layers());
+            selectedLayersGrid.setItems(missionPatchLayers);
+            draw();
+        });
+    }
+
     @SneakyThrows
     private DownloadResponse exportToPng(@NonNull UI ui) {
         var downloadResponse = new CompletableFuture<DownloadResponse>();
@@ -365,13 +369,14 @@ public class MissionPatchMaker extends VerticalLayout {
     }
 
     @SneakyThrows
-    private DownloadResponse exportToJson(@NonNull UI ui) {
+    private DownloadResponse exportToJson() {
         var outputStream = new ByteArrayOutputStream();
 
-        objectMapper
-                .writerFor(objectMapper.getTypeFactory().constructCollectionType(List.class, MissionPatchLayer.class))
-                .withDefaultPrettyPrinter()
-                .writeValue(outputStream, this.missionPatchLayers);
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputStream, new Export(
+                Integer.parseInt(canvas.getElement().getAttribute("width")),
+                Integer.parseInt(canvas.getElement().getAttribute("height")),
+                this.missionPatchLayers
+        ));
 
         var data = outputStream.toByteArray();
 
@@ -381,6 +386,13 @@ public class MissionPatchMaker extends VerticalLayout {
                 "application/json",
                 data.length
         );
+    }
+
+    private record Export(
+            double width,
+            double height,
+            List<MissionPatchLayer> layers
+    ) {
     }
 
     private VerticalLayout layers() {
@@ -620,7 +632,6 @@ public class MissionPatchMaker extends VerticalLayout {
 
                 editor = toggleButton;
             } else if (clazz == ImageLayer.Image.class) {
-                var getter = (Supplier<ImageLayer.Image>) missionPatchLayerProperty.getter();
                 var setter = (Consumer<ImageLayer.Image>) missionPatchLayerProperty.setter();
 
                 var uploadButton = new Button("Upload Image");
