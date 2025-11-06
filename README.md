@@ -1,5 +1,6 @@
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/sam42r/vaadin/maven.yml?label=Build)](https://github.com/Sam42R/vaadin/actions?query=branch%3Amain)
-[![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/Sam42R_reindeer?server=https%3A%2F%2Fsonarcloud.io&label=Quality%20Gate)](https://sonarcloud.io/project/overview?id=Sam42R_reindeer)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/sam42r/vaadin/maven.yml?label=Build)](https://github.com/Sam42R/reindeer/actions?query=branch%3Amain)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Sam42R_reindeer&metric=alert_status)](https://sonarcloud.io/summary/overall?id=Sam42R_reindeer&branch=main)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Sam42R_reindeer&metric=coverage)](https://sonarcloud.io/summary/overall?id=Sam42R_reindeer&branch=main)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.sam42r.reindeer/stars-rating.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.sam42r.reindeer/stars-rating)
 [![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/stars-rating)
 [![GNU GPL, Version 3.0, June 2007](https://img.shields.io/github/license/sam42r/semver-maven-plugin.svg?label=License)](https://www.gnu.org/licenses/gpl-3.0.txt)
