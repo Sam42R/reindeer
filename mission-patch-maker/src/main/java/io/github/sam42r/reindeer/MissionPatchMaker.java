@@ -31,6 +31,7 @@ import com.vaadin.flow.server.streams.DownloadResponse;
 import com.vaadin.flow.server.streams.UploadEvent;
 import elemental.json.Json;
 import in.virit.color.HexColor;
+import io.github.sam42r.reindeer.color.ColorChooser;
 import io.github.sam42r.reindeer.color.ColorNames;
 import io.github.sam42r.reindeer.layer.MissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
@@ -575,29 +576,14 @@ public class MissionPatchMaker extends VerticalLayout {
                 if (missionPatchLayerProperty.name().toLowerCase().contains("color")) {
                     var color = getter.get();
 
-                    var stringColorPicker = new ComboBox<String>();
-                    stringColorPicker.setRenderer(
-                            new ComponentRenderer<>(string -> {
-                                var icon = VaadinIcon.CIRCLE.create();
-                                icon.setColor(string);
-                                return new HorizontalLayout(icon, new Span(string));
-                            }));
-                    stringColorPicker.setItems(Arrays.stream(ColorNames.values()).map(ColorNames::name).toList());
-                    stringColorPicker.setValue(color);
-
-                    var hexColorPicker = new HexColorPicker();
-                    if (color != null) {
-                        hexColorPicker.setValue(HexColor.of(color.startsWith("#") ? color : ColorNames.of(color).getHex()));
-                    }
-
-                    hexColorPicker.addValueChangeListener(e -> stringColorPicker.setValue(e.getValue().hex()));
-
-                    stringColorPicker.addValueChangeListener(e -> {
+                    var colorChooser = new ColorChooser();
+                    colorChooser.setValue(color);
+                    colorChooser.addValueChangeListener(e -> {
                         setter.accept(e.getValue());
                         draw();
                     });
 
-                    editor = new VerticalLayout(stringColorPicker, hexColorPicker);
+                    editor = colorChooser;
                 } else if (missionPatchLayerProperty.name().toLowerCase().contains("family")) {
                     var fontFamilyPicker = new ComboBox<String>();
                     fontFamilyPicker.setRenderer(
