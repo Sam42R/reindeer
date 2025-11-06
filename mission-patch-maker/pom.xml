@@ -36,12 +36,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.parttio</groupId>
-            <artifactId>colorful</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.vaadin.componentfactory</groupId>
             <artifactId>togglebutton</artifactId>
             <version>3.0.0</version>
