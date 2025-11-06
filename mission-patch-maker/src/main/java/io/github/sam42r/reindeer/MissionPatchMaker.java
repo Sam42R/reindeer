@@ -7,6 +7,7 @@ import com.vaadin.componentfactory.ToggleButton;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
@@ -331,7 +332,10 @@ public class MissionPatchMaker extends VerticalLayout {
     }
 
     private void drawToCanvas() {
-        missionPatchLayers.forEach(v -> v.draw(canvas));
+        missionPatchLayers
+                .stream()
+                .filter(MissionPatchLayer::isVisible)
+                .forEach(v -> v.draw(canvas));
     }
 
     private void loadFromJson(UploadEvent uploadEvent, NumberField width, NumberField height) throws IOException {
@@ -427,10 +431,37 @@ public class MissionPatchMaker extends VerticalLayout {
                 .setHeader("Layer")
                 .setAutoWidth(true)
                 .setFlexGrow(1);
-        selectedLayersGrid.addColumn(layer -> null)
-                .setHeader(actions)
+        selectedLayersGrid.addColumn(MissionPatchLayer::isVisible)
+                .setHeader(VaadinIcon.EYE.create())
+                .setRenderer(new ComponentRenderer<>(layer -> {
+                    var checkbox = new Checkbox();
+                    checkbox.setValue(layer.isVisible());
+                    checkbox.addValueChangeListener(e -> {
+                        layer.setVisible(e.getValue());
+                        draw();
+                    });
+                    return checkbox;
+                }))
                 .setAutoWidth(true)
                 .setFlexGrow(0);
+        var labelColumn = selectedLayersGrid.addColumn(MissionPatchLayer::getLabel)
+                .setRenderer(new ComponentRenderer<>(layer -> {
+                    var textField = new TextField();
+                    if (layer.getLabel() != null) {
+                        textField.setValue(layer.getLabel());
+                    }
+                    textField.setSizeFull();
+                    textField.addValueChangeListener(e -> layer.setLabel(e.getValue()));
+                    return textField;
+                }))
+                .setAutoWidth(true)
+                .setFlexGrow(1);
+
+        var labelColumnHeaderWithActions = new HorizontalLayout(new Span("Label"), actions);
+        labelColumnHeaderWithActions.setWidthFull();
+        labelColumnHeaderWithActions.setJustifyContentMode(JustifyContentMode.BETWEEN);
+        labelColumnHeaderWithActions.setDefaultVerticalComponentAlignment(Alignment.CENTER);
+        labelColumn.setHeader(labelColumnHeaderWithActions);
 
         selectedLayersGrid.addSelectionListener(e -> {
             var selectedItemOptional = e.getFirstSelectedItem();

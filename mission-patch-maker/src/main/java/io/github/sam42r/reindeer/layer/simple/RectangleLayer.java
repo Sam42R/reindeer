@@ -1,11 +1,8 @@
 package io.github.sam42r.reindeer.layer.simple;
 
-import io.github.sam42r.reindeer.layer.MissionPatchLayer;
+import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.vaadin.pekkam.Canvas;
 
 import java.util.List;
@@ -14,7 +11,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RectangleLayer implements MissionPatchLayer {
+@EqualsAndHashCode(callSuper = false)
+public class RectangleLayer extends AbstractMissionPatchLayer {
 
     @Builder.Default
     private int x = (int) (DEFAULT_CANVAS_WIDTH * 0.1);

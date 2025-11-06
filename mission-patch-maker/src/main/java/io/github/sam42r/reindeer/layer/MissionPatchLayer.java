@@ -67,6 +67,22 @@ public interface MissionPatchLayer {
 
     void draw(@Nonnull Canvas canvas);
 
+    default boolean isVisible() {
+        return true;
+    }
+
+    default void setVisible(boolean visible) {
+        // do nothing
+    }
+
+    default String getLabel() {
+        return null;
+    }
+
+    default void setLabel(String label) {
+        // do nothing
+    }
+
     enum Category {
         SIMPLE, IMAGE, TEXT, TEMPLATE, NONE;
     }

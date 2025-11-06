@@ -3,7 +3,7 @@ package io.github.sam42r.reindeer.layer.image;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.shared.Registration;
-import io.github.sam42r.reindeer.layer.MissionPatchLayer;
+import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
 import lombok.*;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -18,7 +18,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImageLayer implements MissionPatchLayer {
+@EqualsAndHashCode(callSuper = false)
+public class ImageLayer extends AbstractMissionPatchLayer {
 
     private Image image;
     @Builder.Default
