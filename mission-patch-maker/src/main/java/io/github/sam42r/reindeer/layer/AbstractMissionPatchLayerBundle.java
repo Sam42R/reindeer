@@ -4,7 +4,7 @@ import org.vaadin.pekkam.Canvas;
 
 import java.util.List;
 
-public abstract class AbstractMissionPatchLayerBundle implements MissionPatchLayer {
+public abstract class AbstractMissionPatchLayerBundle extends AbstractMissionPatchLayer {
 
     protected final List<MissionPatchLayer> bundle;
 

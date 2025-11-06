@@ -5,7 +5,7 @@ import com.flowingcode.vaadin.addons.fontawesome.FontAwesome;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.shared.Registration;
-import io.github.sam42r.reindeer.layer.MissionPatchLayer;
+import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
 import lombok.*;
 import org.vaadin.pekkam.Canvas;
@@ -29,7 +29,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class IconLayer implements MissionPatchLayer {
+@EqualsAndHashCode(callSuper = false)
+public class IconLayer extends AbstractMissionPatchLayer {
 
     private static final String FONT_AWESOME_VERSION = "6.6.0";
     private static final String FONT_AWESOME_STYLE = "solid";

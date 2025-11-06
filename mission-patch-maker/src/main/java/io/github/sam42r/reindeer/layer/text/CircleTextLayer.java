@@ -1,11 +1,8 @@
 package io.github.sam42r.reindeer.layer.text;
 
-import io.github.sam42r.reindeer.layer.MissionPatchLayer;
+import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.vaadin.pekkam.Canvas;
 
 import java.util.List;
@@ -16,7 +13,8 @@ import static io.github.sam42r.reindeer.layer.text.AbstractTextLayer.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CircleTextLayer implements MissionPatchLayer {
+@EqualsAndHashCode(callSuper = false)
+public class CircleTextLayer extends AbstractMissionPatchLayer {
 
     @Builder.Default
     private int x = DEFAULT_CANVAS_WIDTH / 2;

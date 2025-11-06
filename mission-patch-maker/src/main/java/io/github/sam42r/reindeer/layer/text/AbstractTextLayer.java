@@ -1,11 +1,8 @@
 package io.github.sam42r.reindeer.layer.text;
 
-import io.github.sam42r.reindeer.layer.MissionPatchLayer;
+import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.CanvasRenderingContext2D;
@@ -16,7 +13,8 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class AbstractTextLayer implements MissionPatchLayer {
+@EqualsAndHashCode(callSuper = false)
+public abstract class AbstractTextLayer extends AbstractMissionPatchLayer {
 
     @Builder.Default
     private int x = DEFAULT_CANVAS_WIDTH / 2;
