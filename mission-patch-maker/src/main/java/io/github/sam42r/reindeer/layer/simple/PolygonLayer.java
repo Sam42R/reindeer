@@ -1,8 +1,8 @@
 package io.github.sam42r.reindeer.layer.simple;
 
 import io.github.sam42r.reindeer.canvas.Canvas;
-import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
+import io.github.sam42r.reindeer.layer.image.ImageLayer;
 import lombok.*;
 
 import java.awt.geom.Point2D;
@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class PolygonLayer extends AbstractMissionPatchLayer {
+public class PolygonLayer extends AbstractSimpleLayer {
 
     @Builder.Default
     private int x = DEFAULT_CANVAS_WIDTH / 2;
@@ -46,6 +46,7 @@ public class PolygonLayer extends AbstractMissionPatchLayer {
                 new MissionPatchLayerProperty<>("stroke", Double.class, this::getStroke, this::setStroke),
                 new MissionPatchLayerProperty<>("color", String.class, this::getColor, this::setColor),
                 new MissionPatchLayerProperty<>("background-color", String.class, this::getFill, this::setFill),
+                new MissionPatchLayerProperty<>("background-image", ImageLayer.Image.class, this::getBackgroundImage, this::setBackgroundImage),
                 new MissionPatchLayerProperty<>("rotation", Integer.class, this::getRotation, this::setRotation)
         );
     }
@@ -79,6 +80,11 @@ public class PolygonLayer extends AbstractMissionPatchLayer {
         if (fill != null) {
             ctx.setFillStyle(fill);
             ctx.fill();
+        }
+
+        if (getBackgroundImage() != null) {
+            ctx.clip();
+            ctx.drawImage(getBackgroundSource(), x - size, y - size, size * 2d, size * 2d);
         }
 
         ctx.restore();
