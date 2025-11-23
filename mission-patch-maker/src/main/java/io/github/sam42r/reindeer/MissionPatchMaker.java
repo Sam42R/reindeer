@@ -30,6 +30,7 @@ import com.vaadin.flow.server.streams.DownloadHandler;
 import com.vaadin.flow.server.streams.DownloadResponse;
 import com.vaadin.flow.server.streams.UploadEvent;
 import elemental.json.Json;
+import io.github.sam42r.reindeer.canvas.Canvas;
 import io.github.sam42r.reindeer.color.ColorChooser;
 import io.github.sam42r.reindeer.layer.MissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
@@ -37,7 +38,6 @@ import io.github.sam42r.reindeer.layer.image.ImageLayer;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.event.ImageLoadEvent;
 
 import java.io.ByteArrayInputStream;
