@@ -51,9 +51,7 @@ public class ColorChooser extends CustomField<String> {
         });
 
         var hexColorPicker = new HexColorPicker();
-        hexColorPicker.addValueChangeListener(e -> {
-            comboBox.setValue(e.getValue().hex());
-        });
+        hexColorPicker.addValueChangeListener(e -> comboBox.setValue(e.getValue().hex()));
 
         Popover popover = new Popover();
         popover.setTarget(button);
