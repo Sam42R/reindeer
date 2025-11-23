@@ -1,12 +1,12 @@
 package io.github.sam42r.reindeer.layer.text;
 
+import io.github.sam42r.reindeer.canvas.CanvasRenderingContext2D;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.vaadin.pekkam.CanvasRenderingContext2D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class StrokeTextLayer extends AbstractTextLayer {
 
     @Override
     public List<MissionPatchLayerProperty<?>> properties() {
-        var properties =  new ArrayList<>(super.properties());
+        var properties = new ArrayList<>(super.properties());
 
         properties.add(
                 new MissionPatchLayerProperty<>("stroke", Double.class, this::getStroke, this::setStroke)
