@@ -32,7 +32,6 @@ import com.vaadin.flow.server.streams.DownloadHandler;
 import com.vaadin.flow.server.streams.DownloadResponse;
 import com.vaadin.flow.server.streams.UploadEvent;
 import elemental.json.Json;
-import io.github.sam42r.reindeer.canvas.Canvas;
 import io.github.sam42r.reindeer.color.ColorChooser;
 import io.github.sam42r.reindeer.layer.MissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
@@ -40,6 +39,7 @@ import io.github.sam42r.reindeer.layer.image.ImageLayer;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.event.ImageLoadEvent;
 
 import java.io.ByteArrayInputStream;
@@ -357,17 +357,19 @@ public class MissionPatchMaker extends VerticalLayout {
         var downloadResponse = new CompletableFuture<DownloadResponse>();
 
         ui.access(() ->
-                canvas.getElement()
-                        .callJsFunction("toDataURL", MediaType.PNG.toString())
-                        .then(String.class, dataUrl -> {
-                            var data = Base64.getDecoder().decode(dataUrl.split(",")[1]);
-                            downloadResponse.completeAsync(() -> new DownloadResponse(
-                                    new ByteArrayInputStream(data),
-                                    "MissionPatch_%d.png".formatted(System.currentTimeMillis()),
-                                    MediaType.PNG.toString(),
-                                    data.length
-                            ));
-                        }));
+                canvas.toDataURL(MediaType.PNG.toString(), 1.0)
+                        .whenComplete((dataUrl, throwable) -> {
+                                    var data = Base64.getDecoder().decode(dataUrl.split(",")[1]);
+                                    downloadResponse.completeAsync(() -> new DownloadResponse(
+                                            new ByteArrayInputStream(data),
+                                            "MissionPatch_%d.png".formatted(System.currentTimeMillis()),
+                                            MediaType.PNG.toString(),
+                                            data.length
+                                    ));
+                                }
+                        )
+
+        );
 
         return downloadResponse.get();
     }

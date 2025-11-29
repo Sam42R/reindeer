@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.shared.Registration;
-import io.github.sam42r.reindeer.canvas.Canvas;
 import io.github.sam42r.reindeer.layer.image.IconLayer;
 import io.github.sam42r.reindeer.layer.image.ImageLayer;
 import io.github.sam42r.reindeer.layer.simple.CircleLayer;
@@ -19,6 +18,7 @@ import io.github.sam42r.reindeer.layer.text.FillTextLayer;
 import io.github.sam42r.reindeer.layer.text.StrokeTextLayer;
 import jakarta.annotation.Nonnull;
 import lombok.NonNull;
+import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.event.ImageLoadEvent;
 
 import java.util.List;
