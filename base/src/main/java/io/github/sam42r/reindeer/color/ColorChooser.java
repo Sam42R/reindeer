@@ -1,7 +1,9 @@
 package io.github.sam42r.reindeer.color;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxVariant;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
@@ -27,8 +29,10 @@ public class ColorChooser extends CustomField<String> {
 
     public ColorChooser(String label) {
         this.comboBox = new ComboBox<>();
+        comboBox.addThemeVariants(ComboBoxVariant.LUMO_SMALL);
 
         var button = new Button(VaadinIcon.PALETTE.create());
+        button.addThemeVariants(ButtonVariant.LUMO_SMALL, ButtonVariant.LUMO_ICON);
         button.getStyle().setBackgroundColor("transparent");
         button.getStyle().setBorder("none");
 

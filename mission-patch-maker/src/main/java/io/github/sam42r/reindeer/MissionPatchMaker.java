@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Anchor;
@@ -23,6 +24,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.textfield.TextFieldVariant;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.ValueProvider;
@@ -433,6 +435,7 @@ public class MissionPatchMaker extends VerticalLayout {
                 .setHeader(VaadinIcon.EYE.create())
                 .setRenderer(new ComponentRenderer<>(layer -> {
                     var checkbox = new Checkbox();
+                    checkbox.getStyle().set("--vaadin-checkbox-size", "18px");
                     checkbox.setValue(layer.isVisible());
                     checkbox.addValueChangeListener(e -> {
                         layer.setVisible(e.getValue());
@@ -445,6 +448,7 @@ public class MissionPatchMaker extends VerticalLayout {
         var labelColumn = selectedLayersGrid.addColumn(MissionPatchLayer::getLabel)
                 .setRenderer(new ComponentRenderer<>(layer -> {
                     var textField = new TextField();
+                    textField.addThemeVariants(TextFieldVariant.LUMO_SMALL);
                     if (layer.getLabel() != null) {
                         textField.setValue(layer.getLabel());
                     }
@@ -537,6 +541,7 @@ public class MissionPatchMaker extends VerticalLayout {
                 var setter = (Consumer<Integer>) missionPatchLayerProperty.setter();
 
                 var integerField = new IntegerField();
+                integerField.addThemeVariants(TextFieldVariant.LUMO_SMALL);
                 integerField.setStepButtonsVisible(true);
                 integerField.setValue(getter.get());
                 if (missionPatchLayerProperty.min() != null && missionPatchLayerProperty.max() != null) {
@@ -554,6 +559,7 @@ public class MissionPatchMaker extends VerticalLayout {
                 var setter = (Consumer<Double>) missionPatchLayerProperty.setter();
 
                 var numberField = new NumberField();
+                numberField.addThemeVariants(TextFieldVariant.LUMO_SMALL);
                 numberField.setStepButtonsVisible(true);
                 numberField.setValue(getter.get());
                 if (missionPatchLayerProperty.min() != null && missionPatchLayerProperty.max() != null) {
@@ -583,6 +589,7 @@ public class MissionPatchMaker extends VerticalLayout {
                     editor = colorChooser;
                 } else if (missionPatchLayerProperty.name().toLowerCase().contains("family")) {
                     var fontFamilyPicker = new ComboBox<String>();
+                    fontFamilyPicker.addThemeVariants(ComboBoxVariant.LUMO_SMALL);
                     fontFamilyPicker.setRenderer(
                             new ComponentRenderer<>(string -> {
                                 var text = new Span(string);
@@ -600,6 +607,7 @@ public class MissionPatchMaker extends VerticalLayout {
                 } else {
                     if (missionPatchLayerProperty.values().isEmpty()) {
                         var textField = new TextField();
+                        textField.addThemeVariants(TextFieldVariant.LUMO_SMALL);
                         textField.setValue(getter.get());
                         textField.addValueChangeListener(e -> {
                             setter.accept(e.getValue());
@@ -609,6 +617,7 @@ public class MissionPatchMaker extends VerticalLayout {
                         editor = textField;
                     } else {
                         var comboBox = new ComboBox<String>();
+                        comboBox.addThemeVariants(ComboBoxVariant.LUMO_SMALL);
                         comboBox.setAllowCustomValue(true);
                         comboBox.setItems((List<String>) missionPatchLayerProperty.values());
                         comboBox.setValue(getter.get());
@@ -625,6 +634,7 @@ public class MissionPatchMaker extends VerticalLayout {
                 var setter = (Consumer<Enum>) missionPatchLayerProperty.setter();
 
                 var combo = new ComboBox<Enum>();
+                combo.addThemeVariants(ComboBoxVariant.LUMO_SMALL);
                 combo.setItems((Collection<Enum>) missionPatchLayerProperty.values());
                 combo.setValue(getter.get());
                 combo.addValueChangeListener(e -> {
@@ -649,7 +659,7 @@ public class MissionPatchMaker extends VerticalLayout {
                 var setter = (Consumer<ImageLayer.Image>) missionPatchLayerProperty.setter();
 
                 var uploadButton = new Button("Upload Image");
-                uploadButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+                uploadButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SMALL);
 
                 var upload = new Upload();
                 upload.setMaxFiles(1);
