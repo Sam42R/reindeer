@@ -12,6 +12,9 @@
 
     <artifactId>mission-patch-maker</artifactId>
 
+    <name>Mission-Patch-Maker</name>
+    <description>Mission-Patch-Maker component for Vaadin</description>
+
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -59,12 +62,4 @@
             <version>33.4.0-jre</version>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>vaadin-addons</id>
-            <url>https://maven.vaadin.com/vaadin-addons</url>
-        </repository>
-    </repositories>
-
 </project>
