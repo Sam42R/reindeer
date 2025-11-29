@@ -3,11 +3,11 @@ package io.github.sam42r.reindeer.layer.image;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.shared.Registration;
-import io.github.sam42r.reindeer.canvas.Canvas;
 import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
 import lombok.*;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.event.ImageLoadEvent;
 
 import java.util.Arrays;
