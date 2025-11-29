@@ -1,6 +1,6 @@
 package io.github.sam42r.reindeer.layer;
 
-import io.github.sam42r.reindeer.canvas.Canvas;
+import org.vaadin.pekkam.Canvas;
 
 import java.util.List;
 
