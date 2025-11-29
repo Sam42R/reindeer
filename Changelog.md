@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- DO NOT REMOVE - c871f32ed1b7a85b24a0f22e8e7d9e3ee285742c - DO NOT REMOVE -->
 
+## 0.4.0 - 2025-11-29
+
+
+### Added
+- :sparkles: add background image to simple layers #10
+- :sparkles: extend canvas (add clip) #10
+- :sparkles: color chooser #9
+- :sparkles: add visibile state and layer name #15
+- :sparkles: enable change canvas zoom #17
+- :sparkles: enable change canvas size #16
+- :sparkles: add mission patch maker
+### Changed
+- :recycle: removed unused imports
+- :recycle: update load and save methods
+- :recycle: update canvas actions UI components
+### Fixed
+- :bug: preload images before render #14
+- :bug: preserve state on refresh #11
+### Security
+- :lock: fix jackson security issue (PTH)
+### Others
+- :construction_worker: add some manifest entries
+- :lipstick: optimze UI (reduce whitespace)
+- :memo: update badges
+- :construction_worker: updata jacoco plugin config
+- :white_check_mark: expand test for stars-rating
+- :construction_worker: fix code-coverage config
+- :adhesive_bandage: fix minor sonar issues
+- :construction_worker: fix sonar-scan config #19
+- :bento: add self generated logo #12
+- :construction_worker: add sonarcloud github action
+- :memo: update groupId for maven-central badge
+
+
 ## 0.3.0 - 2025-10-20
 
 
