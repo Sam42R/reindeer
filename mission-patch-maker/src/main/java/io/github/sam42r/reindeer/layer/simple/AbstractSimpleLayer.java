@@ -3,7 +3,6 @@ package io.github.sam42r.reindeer.layer.simple;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.shared.Registration;
-import io.github.sam42r.reindeer.canvas.Canvas;
 import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.image.ImageLayer;
 import lombok.AllArgsConstructor;
@@ -11,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
+import org.vaadin.pekkam.Canvas;
 import org.vaadin.pekkam.event.ImageLoadEvent;
 
 import java.util.Base64;

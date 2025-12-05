@@ -1,9 +1,9 @@
 package io.github.sam42r.reindeer.layer.text;
 
-import io.github.sam42r.reindeer.canvas.CanvasRenderingContext2D;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.vaadin.pekkam.CanvasRenderingContext2D;
 
 @SuperBuilder
 @NoArgsConstructor

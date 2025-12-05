@@ -1,9 +1,9 @@
 package io.github.sam42r.reindeer.layer.text;
 
-import io.github.sam42r.reindeer.canvas.Canvas;
 import io.github.sam42r.reindeer.layer.AbstractMissionPatchLayer;
 import io.github.sam42r.reindeer.layer.MissionPatchLayerProperty;
 import lombok.*;
+import org.vaadin.pekkam.Canvas;
 
 import java.util.List;
 
