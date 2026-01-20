@@ -13,7 +13,7 @@ import java.nio.file.StandardOpenOption;
 public class BundleHelper {
 
     private static final String[] MODULES = new String[]{
-            "base", "stars-rating"
+            "base", "stars-rating", "mission-patch-maker"
     };
 
     public static void main(String[] args) {
